@@ -16,4 +16,19 @@ let objAsg = (tar, obj) => {
     )
 }
 
-export { argMap, objAsg }
+let genCls = (name, type) => {
+    if(name) {
+        return name + ` rjx-${type}-container rjx-loading`
+    } else {
+        return `rjx-${type}-container rjx-loading`
+    }
+}
+
+let remLod = element => {
+    if(element) {
+        element.classList.remove('rjx-loading')
+        element.classList.add('rjx-loaded')
+    }
+}
+
+export { argMap, objAsg, genCls, remLod }
