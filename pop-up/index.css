@@ -1,0 +1,14 @@
+.rjx-pu-outer > *, .rjx-pu-inner > * {
+    display: none;
+}
+
+.rjx-pu-outer > * {
+    opacity: 0;
+    transition-property: opacity;
+}
+
+.rjx-pu-inner > * {
+    opacity: 0;
+    transform: scale(0.95);
+    transition-property: opacity, transform;
+}

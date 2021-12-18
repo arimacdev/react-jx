@@ -1,0 +1,76 @@
+.rjx-tm-container {
+    position: fixed;
+    z-index: 100;
+    padding: 10px;
+    width: 350px;
+    left: 0px;
+    top: 100vh;
+    transition: top 0.5s;
+    text-align: left;
+}
+
+.rjx-tm-message {
+    padding: 10px 16px;
+    margin-bottom: 15px;
+    border-radius: 10px;
+    opacity: 0.8;
+    box-shadow: 0px 1px 5px rgba(0,0,0,0.25);
+    transition-duration: 0.2s;
+    transition-property: opacity, box-shadow;
+    cursor: default;
+    user-select: none;
+    color: #FFF;
+    overflow: hidden;
+}
+
+.rjx-tm-message:hover {
+    opacity: 0.82;
+    box-shadow: 0px 3px 10px rgba(0,0,0,0.2);
+}
+
+.rjx-tm-head > *, .rjx-tm-body > * {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 18px;
+}
+
+.rjx-tm-head {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 3px;
+}
+
+.rjx-tm-body {
+    font-size: 13px;
+    font-weight: 400;
+}
+
+.rjx-tm-message-info { background-color: #111; }
+.rjx-tm-message-error { background-color: #FF0000; }
+.rjx-tm-message-warning { background-color: #FF6600; }
+
+.rjx-tm-message-icon-space {
+    padding-left: 55px;
+}
+
+.rjx-tm-icon {
+    width: 25px;
+    height: 45px;
+    position: absolute;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: contain;
+    left: 25px;
+}
+
+.rjx-tm-icon-info {
+    background-image: url("data:image/svg+xml,<svg id='svg' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' style='transform: rotate(0deg); fill: rgba(255, 255, 255, 1);'><path d='M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z'></path></svg>");
+}
+
+.rjx-tm-icon-error {
+    background-image: url("data:image/svg+xml,<svg id='svg' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' style='transform: rotate(0deg); fill: rgba(255, 255, 255, 1);'><path d='M12 2C6.47 2 2 6.47 2 12s4.47 10 10 10 10-4.47 10-10S17.53 2 12 2zm5 13.59L15.59 17 12 13.41 8.41 17 7 15.59 10.59 12 7 8.41 8.41 7 12 10.59 15.59 7 17 8.41 13.41 12 17 15.59z'></path></svg>");
+}
+
+.rjx-tm-icon-warning {
+    background-image: url("data:image/svg+xml,<svg id='svg' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg' style='transform: rotate(0deg); fill: rgba(255, 255, 255, 1);'><path d='M1 21h22L12 2 1 21zm12-3h-2v-2h2v2zm0-4h-2v-4h2v4z'></path></svg>");
+}

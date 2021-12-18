@@ -1,0 +1,22 @@
+{
+    "name" : "react-jx",
+    "description": "JSX UI Components for React",
+    "version" : "1.0.8",
+    "license": "MIT",
+
+    "author": {
+        "name": "Deshan Nawanjana",
+        "email": "deshan.uok@gmail.com",
+        "url": "https://dnjs.info/"
+    },
+    
+    "keywords": [
+      "react",
+      "jsx",
+      "ui",
+      "components",
+      "front-end"
+    ],
+
+    "main": "index.js"
+}
