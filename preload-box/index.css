@@ -1,0 +1,15 @@
+.rjx-pb-container {
+    background-image: url(spinner.svg);
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 60px auto;
+    width: inherit;
+    height: inherit;
+}
+
+.rjx-pb-inner {
+    opacity: 0;
+    transition: opacity 0.3s;
+    width: inherit;
+    height: inherit;
+}
