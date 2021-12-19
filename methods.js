@@ -18,23 +18,38 @@ let objectAssign = (tar, obj) => {
 
 let genClassList = (props, shortName) => {
     let userClass = props.className
-    let preloader = props.preloader
     let rjx_class = `rjx-${shortName}-container`
-    let pre_loads = preloader && props.toLoad ? ' rjx-preloader' : ''
     return userClass
-        ? `${userClass} ${rjx_class} ${pre_loads}`
-        : `${rjx_class} ${pre_loads}`
+        ? `${userClass} ${rjx_class}`
+        : `${rjx_class}`
 }
 
-let removePreloader = element => {
-    if(element) {
-        element.classList.add('rjx-loaded')
+let addPreloader = _this => {
+    if(_this.props.preloader !== true) { return }
+    let root = _this.container.current
+    if(root) {
+        root.classList.add('rjx-preloader')
     }
+}
+
+let remPreloader = _this => {
+    if(_this.props.preloader !== true) { return }
+    let root = _this.container.current
+    setTimeout(() => {
+        if(root) {
+            root.classList.add('rjx-preloader-end')
+            setTimeout(() => {
+                root.classList.remove('rjx-preloader')
+                root.classList.remove('rjx-preloader-end')
+            }, 300);
+        }
+    }, 10);
 }
 
 export {
     argumentsMap,
     objectAssign,
     genClassList,
-    removePreloader
+    addPreloader,
+    remPreloader
 }

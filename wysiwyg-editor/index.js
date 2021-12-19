@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import './index.css'
 import checkExtensions from './extensions/state'
 import { Extensions } from './extensions'
-import { genClassList, removePreloader } from '../methods'
+import { genClassList, remPreloader } from '../methods'
 
 let getContainer = _this => {
     return _this.container.current
@@ -26,7 +26,7 @@ class WYSIWYGEditor extends Component {
             this.props.toLoad(content => {
                 text.innerHTML = content
                 checkExtensions(root)
-                removePreloader(this.container.current)
+                remPreloader(this.container.current)
             })
         }
     }

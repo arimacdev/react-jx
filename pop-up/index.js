@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { addPreloader, remPreloader } from '../methods'
 import './index.css'
 
 class PopUp extends Component {
@@ -82,15 +83,10 @@ let show = _this => {
 }
 
 let load = _this => {
-    let child = _this.inner.current.firstElementChild
-    child.classList.remove('rjx-loaded')
-    child.classList.remove('rjx-preloader-end')
-    child.classList.add('rjx-preloader')
+    addPreloader(_this)
     _this.props.toLoad(data => {
         _this.setState({ contentInner : data }, () => {
-            child.classList.remove('rjx-loaded')
-            child.classList.remove('rjx-preloader-end')
-            child.classList.remove('rjx-preloader')
+            remPreloader(_this)
         })
     })
 }

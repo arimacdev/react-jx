@@ -77,12 +77,8 @@ class SearchList extends Component {
 SearchList.find = selector => {
     let _this = document.querySelector(selector)._this
     let obj = {
-        updateQueryByInputEvent : event => {
-            updateQueryByInputEvent(_this, event)
-            return obj
-        },
-        updateQueryByDataObject : input => {
-            updateQueryByDataObject(_this, input)
+        updateQuery : obj => {
+            updateQuery(_this, obj)
             return obj
         },
         reloadList : () => {
@@ -93,17 +89,9 @@ SearchList.find = selector => {
     return obj
 }
 
-let updateQueryByInputEvent = (_this, event) => {
-    let key = event.target.name
-    let val = event.target.value
+let updateQuery = (_this, tmp) => {
     let obj = _this.state.query
-    obj[key] = val
-    _this.setState({ query : obj }, () => { reloadList(_this) })
-}
-
-let updateQueryByDataObject = (_this, input) => {
-    let obj = _this.state.query
-    Object.keys(input).forEach(key => { obj[key] = input[key] })
+    Object.keys(tmp).forEach(key => { obj[key] = tmp[key] })
     _this.setState({ query : obj }, () => { reloadList(_this) })
 }
 

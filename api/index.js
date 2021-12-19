@@ -208,7 +208,6 @@ let send = (req, callback, error) => {
     let data = req.send._data
     let init = data.init
     let conf
-    console.log(data)
     if(data.isDef) { conf = API.configure }
     else {
         conf = {
@@ -239,7 +238,13 @@ let send = (req, callback, error) => {
         : conf.root === ''
             ? path = window.location.toString() + data.url
             : path = conf.root + data.url
+
     let url = new URL(path)
+
+    let old = new URLSearchParams(url.search).entries()
+    let obj = {}
+    Array.from(old).forEach(item => obj[item[0]] = item[1])
+    params = Object.assign(obj, params)
     url.search = new URLSearchParams(params)
     // request
     API.request(url.toString(), request, callback, error)

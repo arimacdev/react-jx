@@ -5,6 +5,7 @@
     background-size: 60px auto;
     width: inherit;
     height: inherit;
+    transition: opacity 0.3s;
 }
 
 .rjx-preloader > * {
@@ -12,10 +13,11 @@
     transition: opacity 0.3s;
 }
 
-.rjx-preloader-end {
-    background-image: none;
+.rjx-preloader-end > * {
+    opacity: 1;
 }
 
-.rjx-preloader-end > * {
+/* prevent pop-up shaking */
+.rjx-pu-container > * {
     opacity: 1;
 }

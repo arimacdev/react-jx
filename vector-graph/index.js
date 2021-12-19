@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { genClassList, removePreloader } from '../methods'
+import { addPreloader, genClassList, removePreloader, remPreloader } from '../methods'
 import SVGBuilder from './svg.builder'
 
 class VectorGraph extends Component {
@@ -12,7 +12,7 @@ class VectorGraph extends Component {
 
     componentDidMount() {
         this.container.current._this = this
-        reload(this)
+        reload(this, this.props.toLoad)
         window.addEventListener('resize', () => {
             resize(this)
         })
@@ -36,10 +36,11 @@ class VectorGraph extends Component {
 // ============================================================================
 
 VectorGraph.find = selector => {
+    console.log(1)
     let _this = document.querySelector(selector)._this
     let obj = {
-        reload : () => {
-            reload(_this)
+        reload : (toLoad) => {
+            reload(_this, toLoad)
             return obj
         },
         resize : () => {
@@ -50,8 +51,9 @@ VectorGraph.find = selector => {
     return obj
 }
 
-let reload = _this => {
-    _this.props.toLoad(obj => {
+let reload = (_this, call) => {
+    addPreloader(_this)
+    call(obj => {
         _this.setState({ graphs : obj }, () => {
             resize(_this)
         })
@@ -69,7 +71,7 @@ let resize = _this => {
             count  : list[0].data.length,
             graphs : list
         })
-        removePreloader(root)
+        remPreloader(_this)
     }
 }
 
