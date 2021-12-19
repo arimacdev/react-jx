@@ -1,4 +1,3 @@
-import './animate'
 import './index.css'
 
 import API from './api'
