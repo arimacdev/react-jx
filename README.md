@@ -1,7 +1,7 @@
 # ReactJX - JSX UI Components for React
 
 <p style="text-align: center; margin: 40px 0px;">
-  <img src="logo.png" height="200">
+  <img src="https://i.ibb.co/0Xg8W1N/logo.png" height="200">
 </p>
 
 **ReactJX** helps you to develop front-end web applications that mainly interact with APIs. Using **ReactJX API Caller** it will be easy to request data from your server and use **ReactJX Components**  to render them on your web application interface. There are bunch of UI components here in **ReactJX Library**. Before I explain about each of them individually, first look at how the **ReactJX API Caller** works.
