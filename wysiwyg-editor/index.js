@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import './index.css'
 import checkExtensions from './extensions/state'
 import { Extensions } from './extensions'
+import { genClassList, removePreloader } from '../methods'
 
 let getContainer = _this => {
     return _this.container.current
@@ -25,6 +26,7 @@ class WYSIWYGEditor extends Component {
             this.props.toLoad(content => {
                 text.innerHTML = content
                 checkExtensions(root)
+                removePreloader(this.container.current)
             })
         }
     }
@@ -42,7 +44,7 @@ class WYSIWYGEditor extends Component {
         let text = { __html : this.props.content || '' }
         let hold = this.props.placeholder || 'Type here...'
         return (
-            <div ref={this.container} className="rjx-we-container">
+            <div ref={this.container} className={genClassList(this.props, 'we')}>
                 <div className="rjx-we-toolbox">
                     { (this.props.extensions || Extensions).map((ext, i) => ext(i)) }
                 </div>

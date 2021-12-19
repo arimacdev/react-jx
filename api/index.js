@@ -1,4 +1,4 @@
-import { objAsg } from '../methods'
+import { objectAssign } from '../methods'
 
 let NOBODY = ['GET', 'HEAD', 'CONNECT', 'OPTIONS', 'TRACE']
 
@@ -45,7 +45,7 @@ API.request = (url, init, callback, error) => {
 
 // ===========================================================================
 
-API.request.get = url => {
+API.request.get = (url, isDef = true) => {
     let req = {
         params : obj => params(req, obj),
         headers : obj => headers(req, obj),
@@ -55,12 +55,12 @@ API.request.get = url => {
     }
     req.send['_data'] = {
         url : url, method : 'GET',
-        params : {}, init : {}
+        params : {}, init : {}, isDef : isDef
     }
     return req
 }
 
-API.request.head = url => {
+API.request.head = (url, isDef = true) => {
     let req = {
         params : obj => params(req, obj),
         headers : obj => headers(req, obj),
@@ -70,12 +70,12 @@ API.request.head = url => {
     }
     req.send['_data'] = {
         url : url, method : 'HEAD',
-        params : {}, init : {}
+        params : {}, init : {}, isDef : isDef
     }
     return req
 }
 
-API.request.post = url => {
+API.request.post = (url, isDef = true) => {
     let req = {
         params : obj => params(req, obj),
         headers : obj => headers(req, obj),
@@ -85,12 +85,12 @@ API.request.post = url => {
     }
     req.send['_data'] = {
         url : url, method : 'POST',
-        params : {}, init : {}
+        params : {}, init : {}, isDef : isDef
     }
     return req
 }
 
-API.request.put = url => {
+API.request.put = (url, isDef = true) => {
     let req = {
         params : obj => params(req, obj),
         headers : obj => headers(req, obj),
@@ -100,12 +100,12 @@ API.request.put = url => {
     }
     req.send['_data'] = {
         url : url, method : 'PUT',
-        params : {}, init : {}
+        params : {}, init : {}, isDef : isDef
     }
     return req
 }
 
-API.request.delete = url => {
+API.request.delete = (url, isDef = true) => {
     let req = {
         params : obj => params(req, obj),
         headers : obj => headers(req, obj),
@@ -115,12 +115,12 @@ API.request.delete = url => {
     }
     req.send['_data'] = {
         url : url, method : 'DELETE',
-        params : {}, init : {}
+        params : {}, init : {}, isDef : isDef
     }
     return req
 }
 
-API.request.connect = url => {
+API.request.connect = (url, isDef = true) => {
     let req = {
         params : obj => params(req, obj),
         headers : obj => headers(req, obj),
@@ -130,12 +130,12 @@ API.request.connect = url => {
     }
     req.send['_data'] = {
         url : url, method : 'CONNECT',
-        params : {}, init : {}
+        params : {}, init : {}, isDef : isDef
     }
     return req
 }
 
-API.request.options = url => {
+API.request.options = (url, isDef = true) => {
     let req = {
         params : obj => params(req, obj),
         headers : obj => headers(req, obj),
@@ -145,12 +145,12 @@ API.request.options = url => {
     }
     req.send['_data'] = {
         url : url, method : 'OPTIONS',
-        params : {}, init : {}
+        params : {}, init : {}, isDef : isDef
     }
     return req
 }
 
-API.request.trace = url => {
+API.request.trace = (url, isDef = true) => {
     let req = {
         params : obj => params(req, obj),
         headers : obj => headers(req, obj),
@@ -160,12 +160,12 @@ API.request.trace = url => {
     }
     req.send['_data'] = {
         url : url, method : 'TRACE',
-        params : {}, init : {}
+        params : {}, init : {}, isDef : isDef
     }
     return req
 }
 
-API.request.patch = url => {
+API.request.patch = (url, isDef = true) => {
     let req = {
         params : obj => params(req, obj),
         headers : obj => headers(req, obj),
@@ -175,7 +175,7 @@ API.request.patch = url => {
     }
     req.send['_data'] = {
         url : url, method : 'PATCH',
-        params : {}, init : {}
+        params : {}, init : {}, isDef : isDef
     }
     return req
 }
@@ -207,25 +207,39 @@ let options = (req, obj) => {
 let send = (req, callback, error) => {
     let data = req.send._data
     let init = data.init
-    let conf = API.configure
-    let durl = window.location.toString()
+    let conf
+    console.log(data)
+    if(data.isDef) { conf = API.configure }
+    else {
+        conf = {
+            params : {},
+            options : {},
+            headers : {},
+            body : {}
+        }
+    }
     // params
-    let params = objAsg(conf.params, data.params || {})
+    let params = objectAssign(conf.params, data.params || {})
     // init
-    let request = objAsg(conf.options, {})
+    let request = objectAssign(conf.options, {})
     // method
     request.method = data.method
     // headers
-    request.headers = objAsg(conf.headers, init.headers || {})
+    request.headers = objectAssign(conf.headers, init.headers || {})
     // body
     if(NOBODY.indexOf(data.method) === -1) {
-        request.body = JSON.stringify(objAsg(conf.body, init.body || {}))
+        request.body = JSON.stringify(objectAssign(conf.body, init.body || {}))
     } else { delete request.body }
     // options
-    request = objAsg(request, data.options || {})
+    request = objectAssign(request, data.options || {})
     // create url and add params
-    let path = conf.root + data.url
-    let url = new URL( path.indexOf(':') > -1 ? path : durl + path)
+    let path
+    data.url.indexOf(':') > -1
+        ? path = data.url
+        : conf.root === ''
+            ? path = window.location.toString() + data.url
+            : path = conf.root + data.url
+    let url = new URL(path)
     url.search = new URLSearchParams(params)
     // request
     API.request(url.toString(), request, callback, error)

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { genCls, remLod } from '../methods'
+import { genClassList, removePreloader } from '../methods'
 import SVGBuilder from './svg.builder'
 
 class VectorGraph extends Component {
@@ -22,7 +22,7 @@ class VectorGraph extends Component {
         return (
             <div
                 ref={this.container}
-                className={genCls(this.props.className, 'vg')}
+                className={genClassList(this.props, 'vg')}
                 style={{
                     width : this.props.width,
                     height : this.props.height
@@ -69,7 +69,7 @@ let resize = _this => {
             count  : list[0].data.length,
             graphs : list
         })
-        remLod(root)
+        removePreloader(root)
     }
 }
 

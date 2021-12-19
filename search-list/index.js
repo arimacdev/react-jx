@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { genCls } from '../methods'
+import { genClassList } from '../methods'
 
 class SearchList extends Component {
 
@@ -64,7 +64,7 @@ class SearchList extends Component {
                 id={this.props.id}
                 ref={this.container}
                 style={{ overflowY: 'auto' }}
-                className={genCls(this.props.className, 'sl')}
+                className={genClassList(this.props, 'sl')}
                 onScroll={() => { this.checkOverflow() }}
             >{ this.state.items }</div>
         )

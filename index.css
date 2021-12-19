@@ -1,5 +1,5 @@
-.rjx-pb-container {
-    background-image: url(spinner.svg);
+.rjx-preloader {
+    background-image: url(preloader.svg);
     background-repeat: no-repeat;
     background-position: center;
     background-size: 60px auto;
@@ -7,9 +7,15 @@
     height: inherit;
 }
 
-.rjx-pb-inner {
+.rjx-preloader > * {
     opacity: 0;
     transition: opacity 0.3s;
-    width: inherit;
-    height: inherit;
+}
+
+.rjx-preloader-end {
+    background-image: none;
+}
+
+.rjx-preloader-end > * {
+    opacity: 1;
 }

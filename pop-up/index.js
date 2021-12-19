@@ -9,20 +9,20 @@ class PopUp extends Component {
         this.inner = React.createRef()
         this.outer = React.createRef()
         this.state = {
-            contentInner : null,
-            contentOuter : null,
-            showing : false,
-            loading : false
+            contentInner : this.props.innerElement || <div></div>,
+            contentOuter : this.props.outerElement || <div></div>
         }
     }
 
-    componentDidMount() { this.container.current._this = this }
+    componentDidMount() {
+        this.container.current._this = this
+    }
 
     render() {
         return (
             <div
                 ref={this.container}
-                className={getContainerClass(this.props.className)}
+                className={genPopUpClass(this.props, 'pu')}
             >
                 <div
                     ref={this.outer}
@@ -40,8 +40,12 @@ class PopUp extends Component {
 
 }
 
-let getContainerClass = name => {
-    return name ? name + ' rjx-pu-container' : 'rjx-pu-container'
+let genPopUpClass = (props, shortName) => {
+    let userClass = props.className
+    let rjx_class = `rjx-${shortName}-container`
+    return userClass
+        ? `${userClass} ${rjx_class}`
+        : `${rjx_class}`
 }
 
 // ==============================================================================
@@ -49,20 +53,22 @@ let getContainerClass = name => {
 PopUp.find = selector => {
     let _this = document.querySelector(selector)._this
     let obj = {
-        open : () => {
-            open(_this)
+        show : () => {
+            show(_this)
             return obj
         },
-        close : () => {
-            close(_this)
+        hide : () => {
+            hide(_this)
             return obj
         }
     }
     return obj
 }
 
-let open = _this => {
-    let view = () => {
+let show = _this => {
+    let inner = _this.props.innerElement || <div></div>
+    _this.setState({ contentInner : inner }, () => {
+        load(_this)
         let inner = _this.inner.current.firstElementChild
         let outer = _this.outer.current.firstElementChild
         inner.style.display = 'block'
@@ -72,28 +78,24 @@ let open = _this => {
             inner.style.opacity = '1'
             inner.style.transform = 'scale(1)'
         }, 10);
-    }
-    let time = (_this.props.duration || 300) / 1000
+    })
+}
+
+let load = _this => {
+    let child = _this.inner.current.firstElementChild
+    child.classList.remove('rjx-loaded')
+    child.classList.remove('rjx-preloader-end')
+    child.classList.add('rjx-preloader')
     _this.props.toLoad(data => {
         _this.setState({ contentInner : data }, () => {
-            // apply transition
-            let inner = _this.inner.current.firstElementChild
-            inner.style.transitionDuration = time + 's'
-            if(typeof _this.props.toBold === 'function') {
-                _this.props.toBold(data => {
-                    _this.setState({ contentOuter : data }, () => {
-                        // apply transition
-                        let outer = _this.outer.current.firstElementChild
-                        outer.style.transitionDuration = time + 's'
-                        view()
-                    })
-                })
-            } else { view() }
+            child.classList.remove('rjx-loaded')
+            child.classList.remove('rjx-preloader-end')
+            child.classList.remove('rjx-preloader')
         })
     })
 }
 
-let close = _this => {
+let hide = _this => {
     let inner = _this.inner.current.firstElementChild
     let outer = _this.outer.current.firstElementChild
     outer.style.opacity = '0'
@@ -102,7 +104,7 @@ let close = _this => {
     setTimeout(() => {
         outer.style.display = 'none'
         inner.style.display = 'none'
-    }, _this.props.duration);
+    }, 300);
 }
 
 export default PopUp

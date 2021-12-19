@@ -1,4 +1,4 @@
-let argMap = args => {
+let argumentsMap = args => {
     let obj = {
         bigint : [], boolean : [], function : [], number : [],
         object : [], string : [], symbol : [], undefined : []
@@ -7,7 +7,7 @@ let argMap = args => {
     return obj
 }
 
-let objAsg = (tar, obj) => {
+let objectAssign = (tar, obj) => {
     return (
         Object.assign(
             JSON.parse(JSON.stringify(tar)),
@@ -16,19 +16,25 @@ let objAsg = (tar, obj) => {
     )
 }
 
-let genCls = (name, type) => {
-    if(name) {
-        return name + ` rjx-${type}-container rjx-loading`
-    } else {
-        return `rjx-${type}-container rjx-loading`
-    }
+let genClassList = (props, shortName) => {
+    let userClass = props.className
+    let preloader = props.preloader
+    let rjx_class = `rjx-${shortName}-container`
+    let pre_loads = preloader && props.toLoad ? ' rjx-preloader' : ''
+    return userClass
+        ? `${userClass} ${rjx_class} ${pre_loads}`
+        : `${rjx_class} ${pre_loads}`
 }
 
-let remLod = element => {
+let removePreloader = element => {
     if(element) {
-        element.classList.remove('rjx-loading')
         element.classList.add('rjx-loaded')
     }
 }
 
-export { argMap, objAsg, genCls, remLod }
+export {
+    argumentsMap,
+    objectAssign,
+    genClassList,
+    removePreloader
+}
