@@ -7,6 +7,14 @@ let generateRandom = (range, count) => {
     }
     return arr
   }
+
+  let cssObj = obj => {
+    let css = ''
+    Object.keys(obj).forEach(key => {
+      css += `${cssKey(key)}: ${obj[key]}; `
+    })
+    return css
+  }
   
   let cssKey = x => {
       let k = ''
@@ -23,7 +31,10 @@ let generateRandom = (range, count) => {
   
     let arr = data.data || generateRandom(data.random, gdata.count)
   
-    let crX = 0
+    let crX = (data.type === 'line')
+      ? -(dtX - dtX * 0.3) / 2
+      : dtX - (dtX - dtX * 0.3) / 2
+
     let crY = gdata.height
   
     if(data.type === 'line') {
@@ -33,29 +44,35 @@ let generateRandom = (range, count) => {
         svg += `<line `
         svg += `x1="${crX}" y1="${crY}" `
         svg += `x2="${crX + dtX}" y2="${val}"`
-        svg += ` style="`
-        Object.keys(data.style).forEach(key => {
-          svg += `${cssKey(key)}: ${data.style[key]}; `
-        })
-        svg += `"></line>`
+        svg += ` style="${cssObj(data.style)}"></line>`
+
         crX += dtX
         crY = val
       })
+
+      // ground the endpoint
+      svg += `<line x1="${crX}" y1="${crY}" `
+      svg += `x2="${crX + dtX}" y2="${gdata.height}" `
+      svg += `style="${cssObj(data.style)}"></line>`
+
     }
   
     if(data.type === 'bar') {
       arr.forEach(itm => {
-        let val = (gdata.height - (itm * data.scale))
+
+        let rect_w = dtX - dtX * 0.3
+        let rect_h = itm * data.scale
+
+        let rect_x = crX - rect_w / 2
+        let rect_y = gdata.height - (itm * data.scale)
+
         svg += `<rect `
-        svg += `x="${crX}" y="${val}" `
-        svg += `width="${dtX - dtX * 0.3}" height="${itm * data.scale}" `
-        svg += ` style="`
-        Object.keys(data.style).forEach(key => {
-          svg += `${key}: ${data.style[key]}; `
-        })
-        svg += `"></rect>`
+        svg += `x="${rect_x}" y="${rect_y}" `
+        svg += `width="${rect_w}" height="${rect_h}" `
+        svg += ` style="${cssObj(data.style)}"></rect>`
         crX += dtX
-        crY = val
+        crY = rect_y
+
       })
     }
   
