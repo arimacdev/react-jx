@@ -1,7 +1,7 @@
 # ReactJX - JSX UI Components for React
 
 <p style="text-align: center; margin: 40px 0px;">
-  <img src="https://i.ibb.co/0Xg8W1N/logo.png" height="200">
+  <img src="logo.png" height="200">
 </p>
 
 **ReactJX** helps you to develop front-end web applications that mainly interact with APIs. Using **ReactJX API Caller** it will be easy to request data from your server and use **ReactJX Components**  to render them on your web application interface. There are bunch of UI components here in **ReactJX Library**. Before I explain about each of them individually, first look at how the **ReactJX API Caller** works.
@@ -215,15 +215,16 @@ Setup your callback to increase you page index query parameter for every each ca
 
 ### Component Find Method
 
-When you need to update the query parameters from HTML inputs and reload the list, you have to use `SearchList.find()` method. Search it with your own class name and use `updateQueryByInputEvent` or `updateQueryByDataObject` to update query and auto reload component.
+When you need to update the query parameters from HTML inputs and reload the list, you have to use `SearchList.find()` method. Search it with your own class name and use `updateQuery` to update query and auto reload component.
 
 ```JavaScript
-let updateQuery = event => {
+let updateQueryData = event => {
   page  = 0 // reset page index
-  SearchList.find('.my-list').updateQueryByInputEvent(event)
+  let key = event.target.name
+  SearchList.find('.my-list').updateQuery({ key : event.target.value })
 }
 
-<div onInput={updateQuery}>
+<div onInput={updateQueryData}>
   <input name="keyword">
     <select name="sort">
       <option>ASC</option>
@@ -232,13 +233,9 @@ let updateQuery = event => {
 </div>
 ```
 
-You can update query by key and value as well. Also you can reload **SearchList** using `.reloadList()` method.
+Also you can reload **SearchList** using `.reloadList()` method.
 
 ```JavaScript
-// update query by object
-SearchList.find('.my-list').updateQueryByDataObject({ sort : 'DESC' })
-
-// reload list
 SearchList.find('.my-list').reloadList()
 ```
 
@@ -339,6 +336,8 @@ Callback data should be an array of objects. This each object counts as a single
 ```
 
 According to this example, graph will be generated using data array and scale reperents the multiplier for each vertical unit to draw the graph. And you have to set styles for SVG lines using style object.
+
+## WYSIWYGEditor
 
 **WYSIWYGEditor** component provides HTML content editable tool. Just import the component and it's extensions.
 
