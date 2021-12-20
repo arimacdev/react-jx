@@ -1,7 +1,7 @@
 # ReactJX - JSX UI Components for React
 
 <p style="text-align: center; margin: 40px 0px;">
-  <img src="logo.png" height="200">
+  <img src="https://i.ibb.co/MkVYxHH/logo.png" height="200">
 </p>
 
 **ReactJX** helps you to develop front-end web applications that mainly interact with APIs. Using **ReactJX API Caller** it will be easy to request data from your server and use **ReactJX Components**  to render them on your web application interface. There are bunch of UI components here in **ReactJX Library**. Before I explain about each of them individually, first look at how the **ReactJX API Caller** works.
@@ -113,6 +113,7 @@ API.request.post('login')
 
 Let's have a look at **ReactJX Components**. Currently there are five components in **ReactJX** and wait for more soon.
 
+- **HoverTooltip** - Create a tooltip that moves with cursor
 - **PopUp** - Display certain content or element as a Pop-Up Box
 - **SearchList** - Load paginated list with scroll effect and query inputs
 - **ToastMessage** - Display toast messages such as info, warning, error
@@ -132,6 +133,33 @@ All these components have some similar properties. When you use these components
 - `onLoad` - ***function*** Calls when content is added inside to component
 
 Let's look at each UI component and learn how to use these props inside them.
+
+## HoverTooltip
+
+Using **HoverTooltip**, you can create a tooltip element that moves with your cursor position. You can just add the component to your app and use `.show()` and `.hide()` mehods to function it.
+
+```JavaScript
+import { HoverTooltip } from 'react-jx'
+
+<HoverTooltip />
+<div onMouseMove={showTip} onMouseOut={hideTip}>Move Here</div>
+
+let showTip = () => {
+  HoverTooltip.show(callback => {
+    callback(
+      <div className="my-tooltip">
+        This is my Tooltip
+      </div>
+    )
+  })
+}
+
+let hideTip = () => {
+  HoverTooltip.hide()
+}
+```
+
+Place the **HoverTooltip** in the root component once in your app and no need of adding them in child components again to use `HoverTooltip.show()` and  `HoverTooltip.hide()` methods.
 
 ## PopUp
 
