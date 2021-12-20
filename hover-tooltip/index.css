@@ -1,0 +1,9 @@
+.rjx-ht-container {
+    position: fixed;
+    z-index: 10000;
+    top: -1000px;
+    left: -1000px;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.2s;
+}
