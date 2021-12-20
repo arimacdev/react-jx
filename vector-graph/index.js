@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { addPreloader, genClassList, removePreloader, remPreloader } from '../methods'
+import { addPreloader, genClassList, remPreloader } from '../methods'
 import SVGBuilder from './svg.builder'
 
 class VectorGraph extends Component {
@@ -36,7 +36,6 @@ class VectorGraph extends Component {
 // ============================================================================
 
 VectorGraph.find = selector => {
-    console.log(1)
     let _this = document.querySelector(selector)._this
     let obj = {
         reload : (toLoad) => {
@@ -46,6 +45,9 @@ VectorGraph.find = selector => {
         resize : () => {
             resize(_this)
             return obj
+        },
+        readAt : x => {
+            return readAt(_this, x)
         }
     }
     return obj
@@ -72,6 +74,19 @@ let resize = _this => {
             graphs : list
         })
         remPreloader(_this)
+    }
+}
+
+let readAt = (_this, x) => {
+    let root = _this.container.current
+    let list = _this.state.graphs
+    if(root && list) {
+        let out = []
+        list.forEach(item => {
+            let idx = (x / root.getBoundingClientRect().width) * item.data.length
+            out.push(item.data[parseInt(idx)])
+        })
+        return out
     }
 }
 

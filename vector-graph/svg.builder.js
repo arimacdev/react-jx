@@ -31,9 +31,12 @@ let generateRandom = (range, count) => {
   
     let arr = data.data || generateRandom(data.random, gdata.count)
   
+
+    let rect_w = dtX - dtX * 0.1
+
     let crX = (data.type === 'line')
-      ? -(dtX - dtX * 0.3) / 2
-      : dtX - (dtX - dtX * 0.3) / 2
+      ? - (rect_w / 2) - (dtX * 0.1) / 2
+      : (dtX - rect_w / 2) - (dtX * 0.1) / 2
 
     let crY = gdata.height
   
@@ -60,7 +63,6 @@ let generateRandom = (range, count) => {
     if(data.type === 'bar') {
       arr.forEach(itm => {
 
-        let rect_w = dtX - dtX * 0.3
         let rect_h = itm * data.scale
 
         let rect_x = crX - rect_w / 2

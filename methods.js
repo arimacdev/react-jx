@@ -27,9 +27,7 @@ let genClassList = (props, shortName) => {
 let addPreloader = _this => {
     if(_this.props.preloader !== true) { return }
     let root = _this.container.current
-    if(root) {
-        root.classList.add('rjx-preloader')
-    }
+    if(root) { root.classList.add('rjx-preloader') }
 }
 
 let remPreloader = _this => {
