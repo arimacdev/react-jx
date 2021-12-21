@@ -113,8 +113,8 @@ API.request.post('login')
 
 Let's have a look at **ReactJX Components**. Currently there are five components in **ReactJX** and wait for more soon.
 
-- **HoverTooltip** - Create a tooltip that moves with cursor
 - **PopUp** - Display certain content or element as a Pop-Up Box
+- **HoverCard** - Create a floating card that fixed or moves with cursor
 - **SearchList** - Load paginated list with scroll effect and query inputs
 - **ToastMessage** - Display toast messages such as info, warning, error
 - **VectorGraph** - Generate multiple SVG graph together in scalable area
@@ -133,33 +133,6 @@ All these components have some similar properties. When you use these components
 - `onLoad` - ***function*** Calls when content is added inside to component
 
 Let's look at each UI component and learn how to use these props inside them.
-
-## HoverTooltip
-
-Using **HoverTooltip**, you can create a tooltip element that moves with your cursor position. You can just add the component to your app and use `.show()` and `.hide()` mehods to function it.
-
-```JavaScript
-import { HoverTooltip } from 'react-jx'
-
-<HoverTooltip />
-<div onMouseMove={showTip} onMouseOut={hideTip}>Move Here</div>
-
-let showTip = () => {
-  HoverTooltip.show(callback => {
-    callback(
-      <div className="my-tooltip">
-        This is my Tooltip
-      </div>
-    )
-  })
-}
-
-let hideTip = () => {
-  HoverTooltip.hide()
-}
-```
-
-Place the **HoverTooltip** in the root component once in your app and no need of adding them in child components again to use `HoverTooltip.show()` and  `HoverTooltip.hide()` methods.
 
 ## PopUp
 
@@ -205,6 +178,49 @@ Above examlpe you saw the prop `preloader` is given as `true` to display spinner
   background-image: none;
 }
 ```
+
+## HoverCard
+
+Using **HoverCard**, you can create a floating element that moves with your cursor position. Also you can make it fixed to any side of the root element.
+
+```JavaScript
+import { HoverCard } from 'react-jx'
+
+<div className="some-item">
+  Move cursor here
+  <HoverCard
+    className="my-hover-card"
+    toLoad={loadCard}
+    offsetX={20}
+    offsetY={20}
+  />
+</div>
+
+let loadCard = callback => {
+  callback(
+    <div>This is my hover card</div>
+  )
+}
+```
+
+According to above example, **HoverCard** has placed inside a root element. So the user should move the cursor on to that root element to view the hover card. Also card will be moved with cursor with given `offsetX` and `offsetY` values, until cursor reaches the out of the root element. Using `className` prop in **HoverCard** component, you can design your card with CSS styles.
+
+Set `placement` array in the **HoverCard** component props to make our card fixed to any side of the root element. By the given order of the array, card will be placed at the possible side.
+
+```JavaScript
+<div className="some-item">
+  Move cursor here
+  <HoverCard
+    className="my-hover-card"
+    toLoad={loadCard}
+    placement={['right', 'left', 'bottom', 'top']}
+    offsetX={10}
+    offsetY={10}
+  />
+</div>
+```
+
+If there are no any possible side to show the card, it will be appear as according to first placement item direction. Here, `offsetX` and `offsetY` will make your card place out of root element or place inside it.
 
 ## SearchList
 
