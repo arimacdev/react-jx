@@ -1,7 +1,7 @@
 import './index.css'
 
 import API from './api'
-import HoverTooltip from './hover-tooltip'
+import HoverCard from './hover-card'
 import PopUp from './pop-up'
 import SearchList from './search-list'
 import VectorGraph from './vector-graph'
@@ -10,7 +10,7 @@ import ToastMessage from './toast-message'
 
 export {
     API,
-    HoverTooltip,
+    HoverCard,
     PopUp,
     SearchList,
     VectorGraph,
